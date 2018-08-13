@@ -30,6 +30,41 @@ void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+	PlayerInputComponent->BindAxis(FName("MoveUp"), this, &ABaseCharacter::OnInputAxisMoveUp);
+	PlayerInputComponent->BindAxis(FName("MoveRight"), this, &ABaseCharacter::OnInputAxisMoveRight);
+	PlayerInputComponent->BindAxis(FName("LookUp"), this, &ABaseCharacter::OnInputAxisLookUp);
+	PlayerInputComponent->BindAxis(FName("LookRight"), this, &ABaseCharacter::OnInputAxisLookRight);
+}
+
+void ABaseCharacter::OnInputAxisMoveUp(float Value)
+{
+	AddMovementInput(FVector::ForwardVector, Value);
+}
+
+void ABaseCharacter::OnInputAxisMoveRight(float Value)
+{
+	AddMovementInput(FVector::RightVector, Value);
+}
+
+void ABaseCharacter::OnInputAxisLookUp(float Value)
+{
+	LookUpValue = Value;
+	UpdateRotation();
+}
+
+void ABaseCharacter::OnInputAxisLookRight(float Value)
+{
+	LookRightValue = Value;
+	UpdateRotation();
+}
+
+void ABaseCharacter::UpdateRotation()
+{
+	FVector Direction(LookUpValue, LookRightValue, 0.0f);
+	if (Direction.Size() > 0.25f)
+	{
+		GetController()->SetControlRotation(Direction.Rotation());
+	}
 }
 
 void ABaseCharacter::CalculateHealth(float Delta)

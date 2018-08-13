@@ -35,6 +35,13 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
+	void OnInputAxisMoveUp(float Value);
+	void OnInputAxisMoveRight(float Value);
+	void OnInputAxisLookUp(float Value);
+	void OnInputAxisLookRight(float Value);
+
+	void UpdateRotation();
+
 	UFUNCTION(BlueprintCallable, Category = "BaseCharacter")
 	virtual void CalculateHealth(float Delta);
 
@@ -43,6 +50,9 @@ private:
 #if WITH_EDITOR
 	virtual void PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent) override;
 #endif
+
+	float LookUpValue = 0.0f;
+	float LookRightValue = 0.0f;
 
 	float Health = 100.0f;
 	bool bIsDead = false;
