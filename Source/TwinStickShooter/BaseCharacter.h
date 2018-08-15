@@ -12,14 +12,7 @@ class TWINSTICKSHOOTER_API ABaseCharacter : public ACharacter
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this character's properties
 	ABaseCharacter();
-
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	UFUNCTION(BlueprintCallable, Category = "BaseCharacter")
 	float GetHealth() const { return Health; }
@@ -30,18 +23,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "BaseCharacter")
 	bool IsDead() const { return bIsDead; }
 
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
 private:
-	void OnInputAxisMoveUp(float Value);
-	void OnInputAxisMoveRight(float Value);
-	void OnInputAxisLookUp(float Value);
-	void OnInputAxisLookRight(float Value);
-
-	void UpdateRotation();
-
 	UFUNCTION(BlueprintCallable, Category = "BaseCharacter")
 	virtual void CalculateHealth(float Delta);
 
@@ -50,9 +32,6 @@ private:
 #if WITH_EDITOR
 	virtual void PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent) override;
 #endif
-
-	float LookUpValue = 0.0f;
-	float LookRightValue = 0.0f;
 
 	float Health = 100.0f;
 	bool bIsDead = false;

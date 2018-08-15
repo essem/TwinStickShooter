@@ -14,10 +14,24 @@ class TWINSTICKSHOOTER_API AWeapon : public AActor
 public:	
 	AWeapon();
 
+	void PullTrigger();
+	void ReleaseTrigger();
+
 private:
+	void Fire();
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	class USkeletalMeshComponent* GunMesh;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	class UArrowComponent* ProjectileSpawnPoint;
+
+	UPROPERTY(EditAnywhere)
+	class TSubclassOf<class AProjectile> ProjectileClass;
+
+	UPROPERTY(EditAnywhere)
+	float RoundsPerSecond = 5.0f;
+
+	bool bInFiring = false;
+	FTimerHandle FireTimerHandle;
 };
