@@ -10,3 +10,13 @@ AEnemyCharacter::AEnemyCharacter()
 
 	GetCharacterMovement()->MaxWalkSpeed = 200.0f;
 }
+
+void AEnemyCharacter::AffectHealth(float Delta)
+{
+	CalculateHealth(Delta);
+
+	if (IsDead())
+	{
+		Destroy();
+	}
+}

@@ -8,6 +8,8 @@ AHeroCharacter::AHeroCharacter()
 {
 	GunTemp = CreateDefaultSubobject<UArrowComponent>(TEXT("GunTemp"));
 	GunTemp->SetupAttachment(RootComponent);
+
+	Tags.Add(FName("Friendly"));
 }
 
 void AHeroCharacter::BeginPlay()

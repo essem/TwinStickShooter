@@ -4,12 +4,14 @@
 #include "Components/SphereComponent.h"
 #include "Engine/CollisionProfile.h"
 #include "GameFramework/ProjectileMovementComponent.h"
+#include "Damageable.h"
 
 AProjectile::AProjectile()
 {
 	SphereComponent = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComponent"));
 	RootComponent = SphereComponent;
 	SphereComponent->InitSphereRadius(10.0f);
+	SphereComponent->SetCollisionProfileName(FName("OverlapOnlyPawn"));
 
 	LaserMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("LaserMesh"));
 	LaserMesh->SetupAttachment(RootComponent);
@@ -32,5 +34,26 @@ AProjectile::AProjectile()
 	ProjectileMovement->UpdatedComponent = RootComponent;
 	ProjectileMovement->InitialSpeed = 1200.0f;
 	ProjectileMovement->ProjectileGravityScale = 0.0f;
+}
 
+void AProjectile::NotifyActorBeginOverlap(AActor* OtherActor)
+{
+	Super::NotifyActorBeginOverlap(OtherActor);
+
+	IDamageable* Damageable = Cast<IDamageable>(OtherActor);
+	if (!Damageable)
+	{
+		Destroy();
+		return;
+	}
+
+	static const FName FriendlyTag("Friendly");
+
+	if (OtherActor->ActorHasTag(FriendlyTag))
+	{
+		return;
+	}
+
+	Damageable->AffectHealth(Damage);
+	Destroy();
 }

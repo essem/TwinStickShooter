@@ -14,6 +14,9 @@ class TWINSTICKSHOOTER_API AProjectile : public AActor
 public:	
 	AProjectile();
 
+	virtual void NotifyActorBeginOverlap(AActor* OtherActor) override;
+
+
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	class USphereComponent* SphereComponent;
@@ -23,4 +26,7 @@ private:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	class UProjectileMovementComponent* ProjectileMovement;
+
+	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true"))
+	float Damage = -20.0f;
 };

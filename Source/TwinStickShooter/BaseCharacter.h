@@ -23,10 +23,11 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "BaseCharacter")
 	bool IsDead() const { return bIsDead; }
 
-private:
+protected:
 	UFUNCTION(BlueprintCallable, Category = "BaseCharacter")
 	virtual void CalculateHealth(float Delta);
 
+private:
 	virtual void CalculateDead();
 
 #if WITH_EDITOR
