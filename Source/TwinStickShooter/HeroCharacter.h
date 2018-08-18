@@ -4,10 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "BaseCharacter.h"
+#include "Damageable.h"
 #include "HeroCharacter.generated.h"
 
 UCLASS(Blueprintable)
-class TWINSTICKSHOOTER_API AHeroCharacter : public ABaseCharacter
+class TWINSTICKSHOOTER_API AHeroCharacter : public ABaseCharacter, public IDamageable
 {
 	GENERATED_BODY()
 
@@ -16,6 +17,8 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	virtual void AffectHealth(float Delta) override;
 
 protected:
 	virtual void BeginPlay() override;

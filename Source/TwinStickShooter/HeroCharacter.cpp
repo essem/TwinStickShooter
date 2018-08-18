@@ -68,3 +68,14 @@ void AHeroCharacter::UpdateRotation()
 		Weapon->ReleaseTrigger();
 	}
 }
+
+void AHeroCharacter::AffectHealth(float Delta)
+{
+	CalculateHealth(Delta);
+
+	if (IsDead())
+	{
+		Destroy();
+		Weapon->Destroy();
+	}
+}

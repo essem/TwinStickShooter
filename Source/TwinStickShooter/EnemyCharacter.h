@@ -15,5 +15,23 @@ class TWINSTICKSHOOTER_API AEnemyCharacter : public ABaseCharacter, public IDama
 public:
 	AEnemyCharacter();
 
+	virtual void NotifyActorBeginOverlap(AActor* OtherActor) override;
+	virtual void NotifyActorEndOverlap(AActor* OtherActor) override;
+
 	virtual void AffectHealth(float Delta) override;
+
+private:
+	void DamageTheHero() const;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	class UBoxComponent* DamageVolume;
+
+	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true"))
+	float Damage = -20.0f;
+
+	UPROPERTY(EditAnywhere)
+	float AttacksPerSecond = 2.0f;
+
+	TWeakObjectPtr<class AHeroCharacter> Hero;
+	FTimerHandle DamageTheHeroTimerHandle;
 };
