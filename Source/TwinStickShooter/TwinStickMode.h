@@ -17,6 +17,12 @@ public:
 	void SetPlayerSpawnTransform(const FTransform& SpawnTransform) { PlayerSpawnTransform = SpawnTransform; }
 	void RespawnPlayer();
 
+protected:
+	virtual void BeginPlay() override;
+
 private:
+	UPROPERTY(EditDefaultsOnly)
+	float EnemiesPerSecond = 2.0f;
+
 	FTransform PlayerSpawnTransform;
 };
