@@ -11,7 +11,7 @@ AProjectile::AProjectile()
 	SphereComponent = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComponent"));
 	RootComponent = SphereComponent;
 	SphereComponent->InitSphereRadius(10.0f);
-	SphereComponent->SetCollisionProfileName(FName("OverlapOnlyPawn"));
+	SphereComponent->SetCollisionProfileName(FName("OverlapAll"));
 
 	LaserMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("LaserMesh"));
 	LaserMesh->SetupAttachment(RootComponent);
@@ -34,6 +34,8 @@ AProjectile::AProjectile()
 	ProjectileMovement->UpdatedComponent = RootComponent;
 	ProjectileMovement->InitialSpeed = 1200.0f;
 	ProjectileMovement->ProjectileGravityScale = 0.0f;
+
+	InitialLifeSpan = 1.5f;
 }
 
 void AProjectile::NotifyActorBeginOverlap(AActor* OtherActor)

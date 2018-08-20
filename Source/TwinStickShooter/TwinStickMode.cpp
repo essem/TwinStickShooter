@@ -2,6 +2,7 @@
 
 #include "TwinStickMode.h"
 #include "HeroCharacter.h"
+#include "EnemyCharacter.h"
 #include "EngineUtils.h"
 #include "EnemySpawner.h"
 
@@ -29,6 +30,16 @@ void ATwinStickMode::BeginPlay()
 
 void ATwinStickMode::RespawnPlayer()
 {
+	for (TActorIterator<AEnemyCharacter> It(GetWorld(), AEnemyCharacter::StaticClass()); It; ++It)
+	{
+		AEnemyCharacter* EnemyCharacter = *It;
+
+		if (IsValid(EnemyCharacter))
+		{
+			EnemyCharacter->Destroy();
+		}
+	}
+
 	AHeroCharacter* HeroCharacter = GetWorld()->SpawnActor<AHeroCharacter>(DefaultPawnClass, PlayerSpawnTransform);
 
 	if (!ensure(HeroCharacter))
