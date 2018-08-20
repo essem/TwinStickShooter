@@ -3,6 +3,7 @@
 #include "HeroCharacter.h"
 #include "Components/ArrowComponent.h"
 #include "Weapon.h"
+#include "TwinStickMode.h"
 
 AHeroCharacter::AHeroCharacter()
 {
@@ -21,6 +22,12 @@ void AHeroCharacter::BeginPlay()
 	Weapon = CastChecked<AWeapon>(GetWorld()->SpawnActor(WeaponClass, &SpawnTransform));
 
 	Weapon->AttachToComponent(GunTemp, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
+
+	// Spawn Transform up to GameMode
+	GameMode = GetWorld()->GetAuthGameMode<ATwinStickMode>();
+	check(GameMode);
+
+	GameMode->SetPlayerSpawnTransform(GetActorTransform());
 }
 
 void AHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -75,6 +82,7 @@ void AHeroCharacter::AffectHealth(float Delta)
 
 	if (IsDead())
 	{
+		GameMode->RespawnPlayer();
 		Destroy();
 		Weapon->Destroy();
 	}

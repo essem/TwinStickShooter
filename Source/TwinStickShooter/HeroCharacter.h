@@ -38,6 +38,9 @@ private:
 	class UArrowComponent* GunTemp;
 
 	UPROPERTY()
+	class ATwinStickMode* GameMode;
+
+	UPROPERTY()
 	class AWeapon* Weapon;
 
 	float LookUpValue = 0.0f;

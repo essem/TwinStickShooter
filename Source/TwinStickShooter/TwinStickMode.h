@@ -13,4 +13,10 @@ class TWINSTICKSHOOTER_API ATwinStickMode : public AGameModeBase
 
 public:
 	ATwinStickMode();
+
+	void SetPlayerSpawnTransform(const FTransform& SpawnTransform) { PlayerSpawnTransform = SpawnTransform; }
+	void RespawnPlayer();
+
+private:
+	FTransform PlayerSpawnTransform;
 };
