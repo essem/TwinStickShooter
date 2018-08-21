@@ -31,6 +31,9 @@ private:
 
 	void UpdateRotation();
 
+	UFUNCTION()
+	void RespawnPlayer();
+
 	UPROPERTY(EditAnywhere)
 	class TSubclassOf<class AWeapon> WeaponClass;
 
@@ -45,4 +48,5 @@ private:
 
 	float LookUpValue = 0.0f;
 	float LookRightValue = 0.0f;
+	FTimerHandle RespawnTimerHandle;
 };

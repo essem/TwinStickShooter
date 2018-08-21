@@ -78,12 +78,22 @@ void AHeroCharacter::UpdateRotation()
 
 void AHeroCharacter::AffectHealth(float Delta)
 {
+	bool bWasDead = IsDead();
+
 	CalculateHealth(Delta);
 
-	if (IsDead())
+	if (!bWasDead && IsDead())
 	{
-		GameMode->RespawnPlayer();
-		Destroy();
-		Weapon->Destroy();
+		DisableInput(nullptr);
+		float Rate = 3.0f;
+		bool bLoop = false;
+		GetWorld()->GetTimerManager().SetTimer(RespawnTimerHandle, this, &AHeroCharacter::RespawnPlayer, Rate, bLoop);
 	}
+}
+
+void AHeroCharacter::RespawnPlayer()
+{
+	GameMode->RespawnPlayer();
+	Destroy();
+	Weapon->Destroy();
 }
