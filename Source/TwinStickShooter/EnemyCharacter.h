@@ -23,6 +23,9 @@ public:
 private:
 	void DamageTheHero() const;
 
+	UFUNCTION()
+	void DestroyEnemy();
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	class UBoxComponent* DamageVolume;
 
@@ -34,4 +37,5 @@ private:
 
 	TWeakObjectPtr<class AHeroCharacter> Hero;
 	FTimerHandle DamageTheHeroTimerHandle;
+	FTimerHandle DestroyTimerHandle;
 };

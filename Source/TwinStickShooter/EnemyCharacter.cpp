@@ -2,6 +2,7 @@
 
 #include "EnemyCharacter.h"
 #include "Components/BoxComponent.h"
+#include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "EnemyAI.h"
 #include "HeroCharacter.h"
@@ -18,12 +19,27 @@ AEnemyCharacter::AEnemyCharacter()
 
 void AEnemyCharacter::AffectHealth(float Delta)
 {
+	bool bWasDead = IsDead();
+
 	CalculateHealth(Delta);
 
-	if (IsDead())
+	if (!bWasDead && IsDead())
 	{
-		Destroy();
+		GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_WorldDynamic, ECR_Ignore);
+		GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Pawn, ECR_Ignore);
+
+		DetachFromControllerPendingDestroy();
+
+		float Rate = 3.0f;
+		bool bLoop = false;
+		GetWorld()->GetTimerManager().SetTimer(DestroyTimerHandle, this, &AEnemyCharacter::DestroyEnemy, Rate, bLoop);
 	}
+
+}
+
+void AEnemyCharacter::DestroyEnemy()
+{
+	Destroy();
 }
 
 void AEnemyCharacter::NotifyActorBeginOverlap(AActor* OtherActor)

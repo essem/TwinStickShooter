@@ -83,6 +83,7 @@ void AHeroCharacter::AffectHealth(float Delta)
 	if (!bWasDead && IsDead())
 	{
 		DisableInput(nullptr);
+
 		float Rate = 3.0f;
 		bool bLoop = false;
 		GetWorld()->GetTimerManager().SetTimer(RespawnTimerHandle, this, &AHeroCharacter::RespawnPlayer, Rate, bLoop);
