@@ -7,9 +7,6 @@
 
 AHeroCharacter::AHeroCharacter()
 {
-	GunTemp = CreateDefaultSubobject<UArrowComponent>(TEXT("GunTemp"));
-	GunTemp->SetupAttachment(RootComponent);
-
 	Tags.Add(FName("Friendly"));
 }
 
@@ -18,10 +15,11 @@ void AHeroCharacter::BeginPlay()
 	Super::BeginPlay();
 
 	// Weapon Setup
-	const FTransform& SpawnTransform = GunTemp->GetComponentToWorld();
-	Weapon = CastChecked<AWeapon>(GetWorld()->SpawnActor(WeaponClass, &SpawnTransform));
+	Weapon = CastChecked<AWeapon>(GetWorld()->SpawnActor(WeaponClass));
 
-	Weapon->AttachToComponent(GunTemp, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
+	static const FName GunSocketName("GunSocket");
+
+	Weapon->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetNotIncludingScale, GunSocketName);
 
 	// Spawn Transform up to GameMode
 	GameMode = GetWorld()->GetAuthGameMode<ATwinStickMode>();

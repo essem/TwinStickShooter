@@ -37,9 +37,6 @@ private:
 	UPROPERTY(EditAnywhere)
 	class TSubclassOf<class AWeapon> WeaponClass;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
-	class UArrowComponent* GunTemp;
-
 	UPROPERTY()
 	class ATwinStickMode* GameMode;
 
