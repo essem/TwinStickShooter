@@ -4,6 +4,7 @@
 #include "Components/ArrowComponent.h"
 #include "Weapon.h"
 #include "TwinStickMode.h"
+#include "TwinStickHUD.h"
 
 AHeroCharacter::AHeroCharacter()
 {
@@ -26,6 +27,14 @@ void AHeroCharacter::BeginPlay()
 	check(GameMode);
 
 	GameMode->SetPlayerSpawnTransform(GetActorTransform());
+
+	// Set up HUD
+	UTwinStickHUD* HUD = CreateWidget<UTwinStickHUD>(GetWorld(), HUDClass);
+
+	if (ensure(HUD))
+	{
+		HUD->AddToViewport();
+	}
 }
 
 void AHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)

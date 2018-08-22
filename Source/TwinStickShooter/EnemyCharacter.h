@@ -35,6 +35,9 @@ private:
 	UPROPERTY(EditAnywhere)
 	float AttacksPerSecond = 2.0f;
 
+	UPROPERTY(EditAnywhere)
+	int32 Score = 500;
+
 	TWeakObjectPtr<class AHeroCharacter> Hero;
 	FTimerHandle DamageTheHeroTimerHandle;
 	FTimerHandle DestroyTimerHandle;

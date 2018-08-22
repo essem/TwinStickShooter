@@ -37,6 +37,9 @@ private:
 	UPROPERTY(EditAnywhere)
 	class TSubclassOf<class AWeapon> WeaponClass;
 
+	UPROPERTY(EditAnywhere)
+	class TSubclassOf<class UTwinStickHUD> HUDClass;
+
 	UPROPERTY()
 	class ATwinStickMode* GameMode;
 

@@ -56,3 +56,8 @@ void ATwinStickMode::RespawnPlayer()
 
 	PlayerController->Possess(HeroCharacter);
 }
+
+void ATwinStickMode::IncrementScore(int32 DeltaScore)
+{
+	Score += DeltaScore;
+}

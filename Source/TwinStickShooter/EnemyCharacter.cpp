@@ -6,6 +6,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "EnemyAI.h"
 #include "HeroCharacter.h"
+#include "TwinStickMode.h"
 
 AEnemyCharacter::AEnemyCharacter()
 {
@@ -25,6 +26,13 @@ void AEnemyCharacter::AffectHealth(float Delta)
 
 	if (!bWasDead && IsDead())
 	{
+		ATwinStickMode* GameMode = GetWorld()->GetAuthGameMode<ATwinStickMode>();
+
+		if (ensure(GameMode))
+		{
+			GameMode->IncrementScore(Score);
+		}
+
 		GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_WorldDynamic, ECR_Ignore);
 		GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Pawn, ECR_Ignore);
 
