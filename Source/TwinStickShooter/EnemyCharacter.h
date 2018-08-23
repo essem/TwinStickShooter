@@ -29,6 +29,9 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	class UBoxComponent* DamageVolume;
 
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<AActor> ExplosionActorClass = nullptr;
+
 	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true"))
 	float Damage = -20.0f;
 

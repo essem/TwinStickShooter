@@ -5,6 +5,7 @@
 #include "Components/ArrowComponent.h"
 #include "Projectile.h"
 #include "TimerManager.h"
+#include "Kismet/GameplayStatics.h"
 
 AWeapon::AWeapon()
 {
@@ -42,6 +43,11 @@ void AWeapon::ReleaseTrigger()
 
 void AWeapon::Fire()
 {
+	if (FireSound)
+	{
+		UGameplayStatics::SpawnSoundAttached(FireSound, GunMesh);
+	}
+
 	const FTransform& SpawnTransform = ProjectileSpawnPoint->GetComponentToWorld();
 	GetWorld()->SpawnActor(ProjectileClass, &SpawnTransform);
 }

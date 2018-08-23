@@ -30,6 +30,9 @@ private:
 	class TSubclassOf<class AProjectile> ProjectileClass;
 
 	UPROPERTY(EditAnywhere)
+	class USoundBase* FireSound = nullptr;
+
+	UPROPERTY(EditAnywhere)
 	float RoundsPerSecond = 5.0f;
 
 	bool bInFiring = false;

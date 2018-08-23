@@ -27,6 +27,12 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	class UProjectileMovementComponent* ProjectileMovement;
 
+	UPROPERTY(EditAnywhere)
+	class USoundBase* HitSound = nullptr;
+
+	UPROPERTY(EditAnywhere)
+	class UParticleSystem* HitParticle = nullptr;
+
 	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true"))
 	float Damage = -20.0f;
 };

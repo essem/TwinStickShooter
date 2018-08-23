@@ -47,6 +47,11 @@ void AEnemyCharacter::AffectHealth(float Delta)
 
 void AEnemyCharacter::DestroyEnemy()
 {
+	if (ExplosionActorClass)
+	{
+		GetWorld()->SpawnActor<AActor>(ExplosionActorClass, GetActorTransform());
+	}
+
 	Destroy();
 }
 

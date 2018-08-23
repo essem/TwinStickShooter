@@ -5,6 +5,7 @@
 #include "Engine/CollisionProfile.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Damageable.h"
+#include "Kismet/GameplayStatics.h"
 
 AProjectile::AProjectile()
 {
@@ -42,13 +43,6 @@ void AProjectile::NotifyActorBeginOverlap(AActor* OtherActor)
 {
 	Super::NotifyActorBeginOverlap(OtherActor);
 
-	IDamageable* Damageable = Cast<IDamageable>(OtherActor);
-	if (!Damageable)
-	{
-		Destroy();
-		return;
-	}
-
 	static const FName FriendlyTag("Friendly");
 
 	if (OtherActor->ActorHasTag(FriendlyTag))
@@ -56,6 +50,21 @@ void AProjectile::NotifyActorBeginOverlap(AActor* OtherActor)
 		return;
 	}
 
-	Damageable->AffectHealth(Damage);
+	IDamageable* Damageable = Cast<IDamageable>(OtherActor);
+	if (Damageable)
+	{
+		Damageable->AffectHealth(Damage);
+	}
+
+	if (HitSound)
+	{
+		UGameplayStatics::SpawnSoundAttached(HitSound, SphereComponent);
+	}
+
+	if (HitParticle)
+	{
+		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), HitParticle, GetActorLocation(), GetActorRotation());
+	}
+
 	Destroy();
 }
